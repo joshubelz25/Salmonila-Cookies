@@ -1,3 +1,5 @@
+'use strict'
+
 const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
 const tableElement = document.getElementById('sales-table');
@@ -17,8 +19,7 @@ function CookieStand(locationName, minCustomersPerHour, maxCustomersPerHour, avg
  this.cookiesEachHour = [];
 
  this.totalDailyCookies = 0;
-
- this.push[CookieStand.all]
+CookieStand.all.push(this);
 
 }
 CookieStand.prototype.calcCustomersEachHour = function() {
@@ -53,14 +54,10 @@ CookieStand.prototype.calcCookiesEachHour = function() {
 
 };
 CookieStand.prototype.render = function() {
- // TODO: generate the calculation of customers each hour here
-
  this.calcCookiesEachHour();
  const tableRow = document.createElement('tr');
- let tableDataElement = document.createElement('td');
+ var tableDataElement = document.createElement('td');
  tableDataElement.textContent = this.locationName;
-
-
  tableRow.appendChild(tableDataElement);
 
  for (let i = 0; i < hours.length; i++) {
@@ -80,14 +77,16 @@ CookieStand.prototype.render = function() {
  tableElement.appendChild(tableRow);
 };
 CookieStand.all = [];
-new CookieStand(seattle, 3, 10, 4.5);
-new CookieStand(tokyo, 12, 20, 22);
-new CookieStand (dubai, 2, 500, 3.5);
-new CookieStand(prineville, 11, 2, 5);
+new CookieStand('seattle', 3, 10, 4.5);
+new CookieStand('tokyo', 12, 20, 22);
+new CookieStand ('dubai', 2, 500, 3.5);
+new CookieStand('prineville', 11, 2, 5);
+
+
 function random(min, max) {
 
  return Math.floor(Math.random() * (max - min + 1)) + min;
-
+}
 function makeHeaderRow() {
 
  const tableRow = document.createElement('tr');
@@ -131,7 +130,7 @@ function makeFooterRow() {
 
    let hourlyTotal = 0;
 
-   for (const j = 0; j < CookieStand.all.length; j++){
+   for (let j = 0; j < CookieStand.all.length; j++){
 
      hourlyTotal += CookieStand.all[j].cookiesEachHour[i];
 
@@ -152,10 +151,9 @@ function makeFooterRow() {
  tableElement.appendChild(tableRow);
 
 }
+
 (function renderTable() {
-
  makeHeaderRow();
-
  for(let i = 0; i < CookieStand.all.length; i++){
 
    CookieStand.all[i].render();
@@ -165,17 +163,20 @@ function makeFooterRow() {
 })();
 
 // make some waves.
-var ocean = document.getElementById("ocean"),
-    waveWidth = 10,
-    waveCount = Math.floor(window.innerWidth/waveWidth),
-    docFrag = document.createDocumentFragment();
+const ocean = document.getElementById('ocean'),
+ waveWidth = 10,
+ waveCount = Math.floor(window.innerWidth/waveWidth),
+ docFrag = document.createDocumentFragment();
 
-for(var i = 0; i < waveCount; i++){
-  const wave = document.createElement("div");
-  wave.className += " wave";
-  docFrag.appendChild(wave);
-  wave.style.left = i * waveWidth + "px";
-  wave.style.webkitAnimationDelay = (i/100) + "s";
+
+
+for(let i = 0; i < waveCount; i++){
+ const wave = document.createElement('div');
+ wave.className += ' wave';
+ docFrag.appendChild(wave);
+ wave.style.left = i * waveWidth + 'px';
+ wave.style.webkitAnimationDelay = (i/100) + 's';
 }
 
 ocean.appendChild(docFrag);
+
